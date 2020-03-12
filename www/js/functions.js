@@ -29,7 +29,7 @@ function initTable(){
 function addPoints(score,id){
     //  db ...
     db.transaction(function(tx) {
-        tx.executeSql('INSERT INTO matchLog (dateTime,score,teamId) VALUES (?,?,?)', [Date(), score, id]);
+        tx.executeSql('INSERT INTO matchLog (dateTime,score,teamId) VALUES (?,?,?)', [Date.now(), score, id]);
 
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
@@ -47,7 +47,41 @@ function insertNewTeam(name){
         console.log('Populated database OK');
     });
 }
+function displayTeamList(){
+    db.transaction(function(tx){
+        tx.executeSql('SELECT id, name FROM team', [], function(tx, result) {
+            var selectTeam1= document.querySelector(".selectTeam1");
+            var selectTeam2= document.querySelector(".selectTeam2");
 
+            for (var i = 0; i < result.rows.length; i++) {
+                selectTeam1.innerHTML += '<option value="'+ result.rows.item(i).id +'">'+result.rows.item(i).name+'</option>';
+                selectTeam2.innerHTML += '<option value="'+ result.rows.item(i).id +'">'+result.rows.item(i).name+'</option>';
+                // var cloneElement= baseElement.cloneNode(true);
+                // cloneElement.setAttribute("value", result.rows.item(i).id);
+                // // cloneElement.querySelector(".name").innerHTML= result.rows.item(i).name;
+                // console.log(result.rows.item(i).id);
+                
+            }
+        });
+    }, function(error) {
+        console.log('Transaction ERROR: ' + error.message);
+    }, function() {
+        console.log('Populated database OK');
+    });
+}
+
+function convertDate(time){
+    var time = new Date(time);
+    var months_arr = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aou','Sep','Oct','Nov','Déc'];
+    var day = time.getDate();
+    var month = months_arr[time.getMonth()];
+    var year = time.getFullYear();
+    var hours = time.getHours();
+    var minutes = "0" + time.getMinutes();
+    var seconds = "0" + time.getSeconds();
+    var convdataTime = day+'-'+month+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return convdataTime;
+}
 function DisplayScore(){
     db.transaction(function(tx){
         tx.executeSql('SELECT id, dateTime, score, teamId FROM matchLog', [], function(tx, result) {
@@ -56,21 +90,10 @@ function DisplayScore(){
             for (var i = 0; i < result.rows.length; i++) {
 
 
-                // var time = result.rows.item(i).dateTime;
-
-                // var months_arr = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aou','Sep','Oct','Nov','Déc'];
-                // var day = time.getDate();
-                // var month = months_arr[time.getMonth()];
-                // var year = time.getFullYear();
-                // var hours = time.getHours();
-                // var minutes = "0" + time.getMinutes();
-                // var seconds = "0" + time.getSeconds();
-
-
-                // var convdataTime = day+'-'+month+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                var time = result.rows.item(i).dateTime;
 
                 var cloneElement= baseElement.cloneNode(true);
-                cloneElement.querySelector(".date").innerHTML= result.rows.item(i).dateTime;
+                cloneElement.querySelector(".date").innerHTML= convertDate(result.rows.item(i).dateTime);
                 cloneElement.querySelector(".points").innerHTML= result.rows.item(i).score;
                 cloneElement.querySelector(".team").innerHTML= result.rows.item(i).teamId;
 
@@ -83,6 +106,7 @@ function DisplayScore(){
         console.log('Populated database OK');
     });
 }
+
 
 
     //         console.log(result);

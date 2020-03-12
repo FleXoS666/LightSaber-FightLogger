@@ -8,6 +8,7 @@ document.addEventListener('deviceready', function(event){
     DisplayScore();
     console.log('device is ready');
 
+    displayTeamList();
     var btnFormValid= document.querySelector(".formValid");
 
 

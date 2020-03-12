@@ -35,10 +35,14 @@ input{
     display:flex;
 }
 .left{
-    margin:auto;
+   padding:4em;
+   border:2px solid lightblue;
+   margin:auto;
 }
 
 .right{
+    padding:4em;
+    border:2px solid red;
     margin:auto;
 }
 .form{
