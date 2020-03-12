@@ -26,10 +26,39 @@ function initTable(){
     });
 }
 
+function convertDate(time){
+    var time = new Date(time);
+    var months_arr = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aou','Sep','Oct','Nov','Déc'];
+    var day = time.getDate();
+    var month = months_arr[time.getMonth()];
+    var year = time.getFullYear();
+    var hours = time.getHours();
+    var minutes = "0" + time.getMinutes();
+    var seconds = "0" + time.getSeconds();
+    var convdataTime = day+'-'+month+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return convdataTime;
+}
+
 function addPoints(score,id){
     //  db ...
     db.transaction(function(tx) {
         tx.executeSql('INSERT INTO matchLog (dateTime,score,teamId) VALUES (?,?,?)', [Date.now(), score, id]);
+
+
+        var baseElement= document.querySelector(".historique");
+        // var lastScore='<li>'+ convertDate(Date.now()) +' : '+score+' pts pour le combattant '+id+'</li>';
+        // .appendChild(lastScore);
+
+var lastScore = document.createElement('li'); // is a node
+lastScore.innerHTML = convertDate(Date.now()) +' : '+score+' pts pour le combattant '+id;
+baseElement.prepend(lastScore);
+        // var time = result.rows.item(i).dateTime;
+        // var cloneElement= baseElement.cloneNode(true);
+        // cloneElement.querySelector(".date").innerHTML= convertDate(Date.now());
+        // cloneElement.querySelector(".points").innerHTML= score;
+        // cloneElement.querySelector(".team").innerHTML= teamId;
+
+        // document.querySelector('.app').appendChild(cloneElement);
 
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
@@ -70,28 +99,14 @@ function displayTeamList(){
     });
 }
 
-function convertDate(time){
-    var time = new Date(time);
-    var months_arr = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aou','Sep','Oct','Nov','Déc'];
-    var day = time.getDate();
-    var month = months_arr[time.getMonth()];
-    var year = time.getFullYear();
-    var hours = time.getHours();
-    var minutes = "0" + time.getMinutes();
-    var seconds = "0" + time.getSeconds();
-    var convdataTime = day+'-'+month+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    return convdataTime;
-}
+
 function DisplayScore(){
     db.transaction(function(tx){
         tx.executeSql('SELECT id, dateTime, score, teamId FROM matchLog', [], function(tx, result) {
             var baseElement= document.querySelector(".historique");
 
             for (var i = 0; i < result.rows.length; i++) {
-
-
                 var time = result.rows.item(i).dateTime;
-
                 var cloneElement= baseElement.cloneNode(true);
                 cloneElement.querySelector(".date").innerHTML= convertDate(result.rows.item(i).dateTime);
                 cloneElement.querySelector(".points").innerHTML= result.rows.item(i).score;

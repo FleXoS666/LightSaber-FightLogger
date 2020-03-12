@@ -1,17 +1,15 @@
 console.log('start app');
 
-
 document.addEventListener('deviceready', function(event){
 
     initDB();
     initTable();
     DisplayScore();
+    displayTeamList();
     console.log('device is ready');
 
-    displayTeamList();
+
     var btnFormValid= document.querySelector(".formValid");
-
-
     btnFormValid.addEventListener("click", function(){
         var inputTeamName= document.querySelector(".teamName").value;
         console.log(inputTeamName);
