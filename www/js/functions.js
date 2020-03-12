@@ -1,20 +1,23 @@
- function addPoints(score){
-     var db = null;
+var db = null;
 
-     if (window.cordova.platformId === 'browser') {
-         db = window.openDatabase('matchLogger', '1.0', 'Data', 2*1024*1024);
-         console.log("opening browser database");
-     }
-     else {
-         db = window.sqlitePlugin.openDatabase({name: 'matchLogger.db', location: 'default'});
-         console.log("opening mobile (plugin) database");
-     }
+function initDB(){
 
 
-    //  db ...
+    if (window.cordova.platformId === 'browser') {
+        db = window.openDatabase('matchLogger', '1.0', 'Data', 2*1024*1024);
+        console.log("opening browser database");
+    }
+    else {
+        db = window.sqlitePlugin.openDatabase({name: 'matchLogger.db', location: 'default'});
+        console.log("opening mobile (plugin) database");
+    }
+
+}
+
+function initTable(){
+
     db.transaction(function(tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS matchLog (id INTEGER PRIMARY KEY, dateTime, score, teamId)');
-        tx.executeSql('INSERT INTO matchLog (dateTime,score,teamId) VALUES (?,?,?)', ["21-12-2012", score, 1]);
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
     }, function() {
@@ -22,19 +25,52 @@
     });
 }
 
-    // db.transaction(function(tx){
-    //     tx.executeSql('SELECT name, score FROM DemoTable LIMIT 3', [], function(tx, result) {
+function addPoints(score,id){
+    //  db ...
+    db.transaction(function(tx) {
+        tx.executeSql('INSERT INTO matchLog (dateTime,score,teamId) VALUES (?,?,?)', [Date(), score, id]);
+    }, function(error) {
+        console.log('Transaction ERROR: ' + error.message);
+    }, function() {
+        console.log('Populated database OK');
+    });
+}
 
-    //         var baseElement= document.querySelector(".userScore");
-    //         for (var i = 0; i < result.rows.length; i++) {
-    //             var cloneElement= baseElement.cloneNode(true);
+function DisplayScore(){
+    db.transaction(function(tx){
+        tx.executeSql('SELECT id, dateTime, score, teamId FROM matchLog', [], function(tx, result) {
+            var baseElement= document.querySelector(".historique");
+
+            for (var i = 0; i < result.rows.length; i++) {
+                var cloneElement= baseElement.cloneNode(true);
+
+                // var time = result.rows.item(i).dateTime;
+
+                // var months_arr = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aou','Sep','Oct','Nov','Déc'];
+                // var day = time.getDate();
+                // var month = months_arr[time.getMonth()];
+                // var year = time.getFullYear();
+                // var hours = time.getHours();
+                // var minutes = "0" + time.getMinutes();
+                // var seconds = "0" + time.getSeconds();
 
 
-    //             cloneElement.querySelector(".name").innerHTML= result.rows.item(i).name;
-    //             cloneElement.querySelector(".score").innerHTML= result.rows.item(i).score;
+                // var convdataTime = day+'-'+month+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
-    //             document.querySelector('.app').appendChild(cloneElement);
-    //         }
+
+                cloneElement.querySelector(".date").innerHTML= result.rows.item(i).dateTime;
+                cloneElement.querySelector(".points").innerHTML= result.rows.item(i).score;
+                cloneElement.querySelector(".team").innerHTML= result.rows.item(i).teamId;
+
+                document.querySelector('.app').appendChild(cloneElement);
+            }
+        });
+    }, function(error) {
+        console.log('Transaction ERROR: ' + error.message);
+    }, function() {
+        console.log('Populated database OK');
+    });
+}
 
 
     //         console.log(result);

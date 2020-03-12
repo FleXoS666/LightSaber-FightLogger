@@ -21,8 +21,20 @@ h1 {
     padding:0px;
     text-align:center;
 }
-button{
+button{  
+    display: inline-block;
     size:2em;
     padding:1em;
     font-size:15px;
+
+}
+.flex{
+    display:flex;
+}
+.left{
+    margin:auto;
+}
+
+.right{
+    margin:auto;
 }

@@ -2,28 +2,53 @@ console.log('start app');
 
 
 document.addEventListener('deviceready', function(event){
-// initDB();
-// initTable();
 
-console.log('device is ready');
-var btn1= document.querySelector(".add1");
-var btn2= document.querySelector(".add2");
-var scoreDisplay= document.querySelector(".score");
+    initDB();
+    initTable();
+    DisplayScore();
+    console.log('device is ready');
+    var btn1A= document.querySelector(".add1A");
+    var btn2A= document.querySelector(".add2A");
+    var btn1B= document.querySelector(".add1B");
+    var btn2B= document.querySelector(".add2B");
 
-var score=0;
-btn1.addEventListener("click", function(){
-    console.log('j ai cliqué sur 1');
-    score++;
-    scoreDisplay.innerHTML= score;
-    addPoints(score);
-});
+    var scoreADisplay= document.querySelector(".scoreA");
+    var scoreBDisplay= document.querySelector(".scoreB");
 
-btn2.addEventListener("click", function(){
-    console.log('j ai cliqué sur 2');
-    score = score+2
-    scoreDisplay.innerHTML= score;
-    addPoints(score);
-});
+    var scoreA=0;
+    var scoreB=0;
 
+    btn1A.addEventListener("click", function(){
+        console.log('j ai cliqué sur 1');
+        scoreA++;
+        scoreADisplay.innerHTML= scoreA;
+        idTeam=1;
+        addPoints(scoreA,idTeam);
+    });
 
+    btn2A.addEventListener("click", function(){
+        console.log('j ai cliqué sur 2');
+        scoreA = scoreA+2
+        scoreADisplay.innerHTML= scoreA;
+        idTeam=1;
+        addPoints(scoreA,idTeam);
+    });
+
+    btn1B.addEventListener("click", function(){
+        console.log('j ai cliqué sur 1');
+        scoreB++;
+        scoreBDisplay.innerHTML= scoreB;
+        idTeam=2;
+        addPoints(scoreB,idTeam);
+    });
+
+    btn2B.addEventListener("click", function(){
+        console.log('j ai cliqué sur 2');
+        scoreB = scoreB+2
+        scoreBDisplay.innerHTML= scoreB;
+        idTeam=2;
+        addPoints(scoreB,idTeam);
+    });
+
+    DisplayScore();
 });

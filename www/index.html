@@ -10,16 +10,31 @@
 </head>
 <body>
     <div class="app">
-        <h1>Sabre Laser</h1>
+        <h1>LightSaber - FightLogger</h1>
         <div id="deviceready" class="blink">
-            <h2 class="teamName">PSG</h2>
-            <p><span class="score"></span> pts</p>
-            <button class="add1">+1</button><br/>
-            <button class="add2">+2</button>
+            <div class="flex">
+                <div class="left">
+                    <h2 class="teamAName">Yoda</h2>
+                    <p><span class="scoreA"></span> pts</p>
+                    <div class="flex">
+                        <button class="add1A">+1</button><br/>
+                        <button class="add2A">+2</button>
+                    </div>
+                </div>
+                <div class="left">
+                    <h2 class="teamBName">Palpatine</h2>
+                    <p><span class="scoreB"></span> pts</p>
+                    <div class="flex">
+                        <button class="add1B">+1</button><br/>
+                        <button class="add2B">+2</button>
+                    </div></div>
+                </div>
+            </div>
         </div>
-        <div class="historique">
+
+        <div class="historique flex">
             <ul>
-                <li><span class="date"></span> : <span class="points"> pts</span> pour <span class="team"></span></li>
+                <li><span class="date"></span> : <span class="points"></span>pts pour l'équipe<span class="team"></span></li>
             </ul>
         </div>
     </div>
