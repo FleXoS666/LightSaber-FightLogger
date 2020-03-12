@@ -45,20 +45,11 @@ function addPoints(score,id){
         tx.executeSql('INSERT INTO matchLog (dateTime,score,teamId) VALUES (?,?,?)', [Date.now(), score, id]);
 
 
-        var baseElement= document.querySelector(".historique");
-        // var lastScore='<li>'+ convertDate(Date.now()) +' : '+score+' pts pour le combattant '+id+'</li>';
-        // .appendChild(lastScore);
+        var baseElement= document.getElementById("historique");
 
-var lastScore = document.createElement('li'); // is a node
-lastScore.innerHTML = convertDate(Date.now()) +' : '+score+' pts pour le combattant '+id;
-baseElement.prepend(lastScore);
-        // var time = result.rows.item(i).dateTime;
-        // var cloneElement= baseElement.cloneNode(true);
-        // cloneElement.querySelector(".date").innerHTML= convertDate(Date.now());
-        // cloneElement.querySelector(".points").innerHTML= score;
-        // cloneElement.querySelector(".team").innerHTML= teamId;
-
-        // document.querySelector('.app').appendChild(cloneElement);
+        var lastScore = document.createElement('li'); // is a node
+        lastScore.innerHTML = convertDate(Date.now()) +' : '+score+' pts pour le combattant '+id;
+        baseElement.append(lastScore);
 
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
