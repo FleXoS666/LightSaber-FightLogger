@@ -28,6 +28,9 @@ button{
     font-size:15px;
 
 }
+input{
+ height:2em;
+}
 .flex{
     display:flex;
 }
@@ -37,4 +40,8 @@ button{
 
 .right{
     margin:auto;
+}
+.form{
+    margin-top: 2em;
+    text-align: center;
 }

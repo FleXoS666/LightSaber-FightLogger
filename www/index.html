@@ -12,8 +12,19 @@
     <div class="app">
         <h1>LightSaber - FightLogger</h1>
         <div id="deviceready" class="blink">
+
+            <form class="form">
+                <input class="teamName" type="text" name="teamName">
+                <button class="formValid">+ Ajouter</button>
+
+            </form>
+
+
             <div class="flex">
                 <div class="left">
+                    <select class="selectTeam1">
+                        <option></option>
+                    </select>
                     <h2 class="teamAName">Yoda</h2>
                     <p><span class="scoreA"></span> pts</p>
                     <div class="flex">
@@ -32,8 +43,8 @@
             </div>
         </div>
 
-        <div class="historique flex">
-            <ul>
+        <div class="flex">
+            <ul class="historique">
                 <li><span class="date"></span> : <span class="points"></span>pts pour l'équipe<span class="team"></span></li>
             </ul>
         </div>

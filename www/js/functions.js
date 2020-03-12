@@ -17,7 +17,8 @@ function initDB(){
 function initTable(){
 
     db.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS matchLog (id INTEGER PRIMARY KEY, dateTime, score, teamId)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS matchLog (id INTEGER PRIMARY KEY, dateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, score, teamId)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS team (id INTEGER PRIMARY KEY, name TEXT)');
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
     }, function() {
@@ -29,6 +30,17 @@ function addPoints(score,id){
     //  db ...
     db.transaction(function(tx) {
         tx.executeSql('INSERT INTO matchLog (dateTime,score,teamId) VALUES (?,?,?)', [Date(), score, id]);
+
+    }, function(error) {
+        console.log('Transaction ERROR: ' + error.message);
+    }, function() {
+        console.log('Populated database OK');
+    });
+}
+
+function insertNewTeam(name){
+    db.transaction(function(tx) {
+        tx.executeSql('INSERT INTO team (name) VALUES (?)', [name]);
     }, function(error) {
         console.log('Transaction ERROR: ' + error.message);
     }, function() {
@@ -42,7 +54,7 @@ function DisplayScore(){
             var baseElement= document.querySelector(".historique");
 
             for (var i = 0; i < result.rows.length; i++) {
-                var cloneElement= baseElement.cloneNode(true);
+
 
                 // var time = result.rows.item(i).dateTime;
 
@@ -57,7 +69,7 @@ function DisplayScore(){
 
                 // var convdataTime = day+'-'+month+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
-
+                var cloneElement= baseElement.cloneNode(true);
                 cloneElement.querySelector(".date").innerHTML= result.rows.item(i).dateTime;
                 cloneElement.querySelector(".points").innerHTML= result.rows.item(i).score;
                 cloneElement.querySelector(".team").innerHTML= result.rows.item(i).teamId;
