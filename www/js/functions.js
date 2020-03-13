@@ -93,15 +93,16 @@ function displayTeamList(){
 
 function DisplayScore(){
     db.transaction(function(tx){
-        tx.executeSql('SELECT id, dateTime, score, teamId FROM matchLog', [], function(tx, result) {
+        tx.executeSql('SELECT matchLog.id, matchLog.dateTime, matchLog.score, team.name FROM matchLog LEFT JOIN team ON matchLog.teamId=team.id', [], function(tx, result) {
             var baseElement= document.querySelector(".historique");
 
             for (var i = 0; i < result.rows.length; i++) {
+                baseElement.removeAttribute("id");
                 var time = result.rows.item(i).dateTime;
                 var cloneElement= baseElement.cloneNode(true);
                 cloneElement.querySelector(".date").innerHTML= convertDate(result.rows.item(i).dateTime);
                 cloneElement.querySelector(".points").innerHTML= result.rows.item(i).score;
-                cloneElement.querySelector(".team").innerHTML= result.rows.item(i).teamId;
+                cloneElement.querySelector(".team").innerHTML= result.rows.item(i).name;
 
                 document.querySelector('.app').appendChild(cloneElement);
             }

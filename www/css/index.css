@@ -41,17 +41,20 @@ input{
     display:flex;
 }
 .left{
-   padding:4em;
-   border:2px solid lightblue;
-   margin:auto;
+    padding:2em;
+    border:2px solid lightblue;
+    margin:auto;
 }
 
 .right{
-    padding:4em;
+    padding:2em;
     border:2px solid red;
     margin:auto;
 }
 .form{
     margin-top: 2em;
     text-align: center;
+}
+.hidden{
+    display:none;
 }

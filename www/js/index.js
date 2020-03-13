@@ -19,49 +19,58 @@ document.addEventListener('deviceready', function(event){
         }
     });
 
+//  Selection du combattant 1 et affichage de son nom
 
-    var btn1A= document.querySelector(".add1A");
-    var btn2A= document.querySelector(".add2A");
-    var btn1B= document.querySelector(".add1B");
-    var btn2B= document.querySelector(".add2B");
+// var liste, texte, nomCombattant;
+// nomCombattant = document.querySelector(".teamAName");
+// liste = document.querySelector(".selectTeam1");
+// texte = liste.options[liste.selectedIndex].text;
+// console.log(texte);
+// str.replace(nomCombattant, texte);
 
-    var scoreADisplay= document.querySelector(".scoreA");
-    var scoreBDisplay= document.querySelector(".scoreB");
 
-    var scoreA=0;
-    var scoreB=0;
+var btn1A= document.querySelector(".add1A");
+var btn2A= document.querySelector(".add2A");
+var btn1B= document.querySelector(".add1B");
+var btn2B= document.querySelector(".add2B");
 
-    btn1A.addEventListener("click", function(){
-        console.log('j ai cliqué sur 1');
-        scoreA++;
-        scoreADisplay.innerHTML= scoreA;
-        idTeam=1;
-        addPoints(scoreA,idTeam);
-    });
+var scoreADisplay= document.querySelector(".scoreA");
+var scoreBDisplay= document.querySelector(".scoreB");
 
-    btn2A.addEventListener("click", function(){
-        console.log('j ai cliqué sur 2');
-        scoreA = scoreA+2
-        scoreADisplay.innerHTML= scoreA;
-        idTeam=1;
-        addPoints(scoreA,idTeam);
-    });
+var scoreA=0;
+var scoreB=0;
 
-    btn1B.addEventListener("click", function(){
-        console.log('j ai cliqué sur 1');
-        scoreB++;
-        scoreBDisplay.innerHTML= scoreB;
-        idTeam=2;
-        addPoints(scoreB,idTeam);
-    });
+btn1A.addEventListener("click", function(){
+    console.log('j ai cliqué sur 1');
+    scoreA++;
+    scoreADisplay.innerHTML= scoreA;
+    idTeam=1;
+    addPoints(scoreA,idTeam);
+});
 
-    btn2B.addEventListener("click", function(){
-        console.log('j ai cliqué sur 2');
-        scoreB = scoreB+2
-        scoreBDisplay.innerHTML= scoreB;
-        idTeam=2;
-        addPoints(scoreB,idTeam);
-    });
+btn2A.addEventListener("click", function(){
+    console.log('j ai cliqué sur 2');
+    scoreA = scoreA+2
+    scoreADisplay.innerHTML= scoreA;
+    idTeam=1;
+    addPoints(scoreA,idTeam);
+});
+
+btn1B.addEventListener("click", function(){
+    console.log('j ai cliqué sur 1');
+    scoreB++;
+    scoreBDisplay.innerHTML= scoreB;
+    idTeam=2;
+    addPoints(scoreB,idTeam);
+});
+
+btn2B.addEventListener("click", function(){
+    console.log('j ai cliqué sur 2');
+    scoreB = scoreB+2
+    scoreBDisplay.innerHTML= scoreB;
+    idTeam=2;
+    addPoints(scoreB,idTeam);
+});
 
 
 });
