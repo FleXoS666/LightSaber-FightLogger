@@ -39,7 +39,7 @@ function convertDate(time){
     return convdataTime;
 }
 
-function addPoints(score,id){
+function addPoints(score,id,name){
     //  db ...
     db.transaction(function(tx) {
         tx.executeSql('INSERT INTO matchLog (dateTime,score,teamId) VALUES (?,?,?)', [Date.now(), score, id]);
@@ -48,7 +48,7 @@ function addPoints(score,id){
         var baseElement= document.getElementById("historique");
 
         var lastScore = document.createElement('li'); // is a node
-        lastScore.innerHTML = convertDate(Date.now()) +' : '+score+' pts pour le combattant '+id;
+        lastScore.innerHTML = convertDate(Date.now()) +' : '+score+' pts pour le combattant '+name;
         baseElement.append(lastScore);
 
     }, function(error) {
@@ -76,10 +76,6 @@ function displayTeamList(){
             for (var i = 0; i < result.rows.length; i++) {
                 selectTeam1.innerHTML += '<option value="'+ result.rows.item(i).id +'">'+result.rows.item(i).name+'</option>';
                 selectTeam2.innerHTML += '<option value="'+ result.rows.item(i).id +'">'+result.rows.item(i).name+'</option>';
-                // var cloneElement= baseElement.cloneNode(true);
-                // cloneElement.setAttribute("value", result.rows.item(i).id);
-                // // cloneElement.querySelector(".name").innerHTML= result.rows.item(i).name;
-                // console.log(result.rows.item(i).id);
                 
             }
         });

@@ -58,3 +58,9 @@ input{
 .hidden{
     display:none;
 }
+.teamAName{
+    text-transform: capitalize;
+}
+.teamBName{
+    text-transform: capitalize;
+}

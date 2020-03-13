@@ -23,10 +23,10 @@
             <div class="flex">
                 <div class="left">
                     <h2>Combattant 1</h2>
-                    <select class="selectTeam1">
+                    <select id="selectTeam1" class="selectTeam1">
 
                     </select>
-                    <h3 class="teamAName">Yoda</h3>
+                    <h3><span class="teamAName"></span></h3>
                     <p><span class="scoreA"></span> pts</p>
                     <div class="flex">
                         <button class="add1A">+1</button><br/>
@@ -35,11 +35,11 @@
                 </div>
                 <div class="right">
                     <h2>Combattant 2</h2>
-                    <select class="selectTeam2">
+                    <select id="selectTeam2" class="selectTeam2">
 
                     </select>
 
-                    <h3 class="teamBName">Palpatine</h3>
+                    <h3><span class="teamBName"></span></h3>
                     <p><span class="scoreB"></span> pts</p>
                     <div class="flex">
                         <button class="add1B">+1</button><br/>
@@ -51,13 +51,13 @@
 
         <div class="flex">
             <ul id="historique">
-                
+
             </ul>
         </div>
     </div>
 
     <div class="template hidden">
-        
+
         <li id="listeHisto" class="historique"><span class="date"></span> : <span class="points"></span>pts pour le combattant <span class="team"></span></li>
 
     </div>
